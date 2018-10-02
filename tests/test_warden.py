@@ -46,6 +46,7 @@ combined = ""
 with open("tests/test_data/backend.tf", 'r') as fp: combined = combined + fp.read()
 with open("tests/test_data/main.tf", 'r') as fp: combined = combined + fp.read()
 
+
 class wardenTests(unittest.TestCase):
     def test_get_resources(self):
         self.assertEqual(warden.get_resources(test_obj), [test_obj["resource"]])
@@ -55,6 +56,9 @@ class wardenTests(unittest.TestCase):
 
     def test_combine_hcl(self):
         self.assertEqual(warden.combine_hcl("tests/test_data/"), combined)
+
+    def test_check_if_allowed_service(self):
+        self.assertEqual(warden.check_if_allowed_service(), True)
 
 
 if __name__ == '__main__':
