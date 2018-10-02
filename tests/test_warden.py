@@ -58,7 +58,7 @@ class wardenTests(unittest.TestCase):
         self.assertEqual(warden.combine_hcl("tests/test_data/"), combined)
 
     def test_check_if_allowed_service(self):
-        self.assertEqual(warden.check_if_allowed_service(), True)
+        self.assertEqual(warden.check_if_allowed_service([test_obj["resource"]]), True)
 
 
 if __name__ == '__main__':
