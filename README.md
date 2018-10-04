@@ -5,7 +5,7 @@ Idea is to have an opensource sentinel like application for individual users and
 ## required modules:
 hcl: `pip install pyhcl`   
 or   
-pip install -r requirements.txt
+`pip install -r requirements.txt`
 
 ## To test:
 `python -m unittest discover tests/`
