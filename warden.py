@@ -1,6 +1,7 @@
 import hcl
 import json
 import sys
+import collections
 from os import listdir
 
 
@@ -42,10 +43,18 @@ def check_if_allowed_service(hcl_obj):
 
 
 def check_for_policy_complience(service_name, service_hcl):
-    print service_name, service_hcl
+    compare = lambda x, y: collections.Counter(x) == collections.Counter(y)
+    # print service_name, service_hcl
     with open("policies/"+service_name+".json", 'r') as fp:
         json_obj = json.loads(fp.read())
-        # print service_hcl["tags"]
+        # tags:
+        print compare(service_hcl[service_hcl.keys()[0]]["tags"].keys(), json_obj["tags"])
+        print compare(service_hcl[service_hcl.keys()[0]]["tags"].keys(), json_obj["tags"])
+        
+        # print service_hcl[service_hcl.keys()[0]]["tags"].keys()
+        # print json_obj["tags"]
+        # if (service_hcl[service_hcl.keys()[0]]["tags"].keys() == json_obj["tags"]):
+            # print yes
     return True
 
 
