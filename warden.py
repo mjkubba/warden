@@ -48,14 +48,11 @@ def check_for_policy_complience(service_name, service_hcl):
     with open("policies/"+service_name+".json", 'r') as fp:
         json_obj = json.loads(fp.read())
         # tags:
-        print compare(service_hcl[service_hcl.keys()[0]]["tags"].keys(), json_obj["tags"])
-        print compare(service_hcl[service_hcl.keys()[0]]["tags"].keys(), json_obj["tags"])
-        
-        # print service_hcl[service_hcl.keys()[0]]["tags"].keys()
-        # print json_obj["tags"]
-        # if (service_hcl[service_hcl.keys()[0]]["tags"].keys() == json_obj["tags"]):
-            # print yes
-    return True
+        if compare(service_hcl[service_hcl.keys()[0]]["tags"].keys(), json_obj["tags"]): #and \
+        #compare(service_hcl[service_hcl.keys()[0]]["versioning"].keys(), json_obj["versioning"]):
+            return True
+        else:
+            return False
 
 
 def check_policies(hcl_obj):
@@ -66,7 +63,7 @@ def check_policies(hcl_obj):
     for service in hcl_obj:
         for ser in service.keys():
             if ser in cleaned_policies_list:
-                check_for_policy_complience(ser, service[ser])
+                return check_for_policy_complience(ser, service[ser])
             else:
                 print "Service: '" + ser + "' Do not have policy"
 
@@ -80,7 +77,7 @@ def main():
         all_hcl_obj.update(hcl.loads(combine_hcl(directory+mod)))
     all_resources = get_resources(all_hcl_obj)
     print check_if_allowed_service(all_resources)
-    check_policies(all_resources)
+    print check_policies(all_resources)
     # pp = pprint.PrettyPrinter()
     # pp.pprint(get_resources(all_hcl_obj))
 
