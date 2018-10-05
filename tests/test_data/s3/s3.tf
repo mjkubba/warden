@@ -10,7 +10,7 @@ resource "aws_s3_bucket" "test-bucket" {
   versioning {
     enabled = true
   }
-
+  # gardening { "maybe" = true }
   tags {
     BrIT            = "${var.tag_BrIT}"
     DCIO            = "${var.tag_DCIO}"

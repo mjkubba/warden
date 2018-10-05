@@ -24,4 +24,4 @@ matching the service name (e.g. aws_s3_bucket.json) and must have following key-
 `not-exist`: A list for all the attributes that should not exist (e.g. acl)   
 
 ## Contributing
-To contribute to this opensource project please submit a pull request with your changes, all changes must be tested (we use python default unittest) and must be pep8 formatted.
+To contribute to this opensource project please submit a pull request with your changes, all changes must be tested (we use python default unittest) and must be pep8 formatted (pep257 optional).
