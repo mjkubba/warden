@@ -1,6 +1,10 @@
 {
   "tags": ["DCIO", "BrIT", "BISO", "public Access", "Environment", "Cost Center", "Product Owner"],
-  "versioning" : {
-    "enabled" : true
-  }
+  "exist" : [{
+      "versioning" : {
+        "enabled" : true
+      }
+    }
+  ],
+  "not-exist" : ["gardening"]
 }

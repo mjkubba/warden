@@ -42,14 +42,38 @@ def check_if_allowed_service(hcl_obj):
     return True
 
 
-def check_for_policy_complience(service_name, service_hcl):
+def check_tags(service_hcl, policy):
     compare = lambda x, y: collections.Counter(x) == collections.Counter(y)
-    # print service_name, service_hcl
+    return compare(service_hcl[service_hcl.keys()[0]]["tags"].keys(), policy["tags"])
+
+
+def check_exist(service_hcl, policy):
+    checks = []
+    compare = lambda x, y: collections.Counter(x) == collections.Counter(y)
+    for policy in policy["exist"]:
+        checks.append(compare(service_hcl[service_hcl.keys()[0]][policy.keys()[0]], policy[policy.keys()[0]]))
+    if False not in checks:
+        return True
+
+
+def check_not_exist(service_hcl, policy):
+    checks = []
+    compare = lambda x, y: collections.Counter(x) == collections.Counter(y)
+    for property in policy["not-exist"]:
+        if property in service_hcl.keys()[0]:
+            checks.append(False)
+        else:
+            checks.append(True)
+    if False not in checks:
+        return True
+
+
+def check_for_policy_complience(service_name, service_hcl):
     with open("policies/"+service_name+".json", 'r') as fp:
         json_obj = json.loads(fp.read())
-        # tags:
-        if compare(service_hcl[service_hcl.keys()[0]]["tags"].keys(), json_obj["tags"]): #and \
-        #compare(service_hcl[service_hcl.keys()[0]]["versioning"].keys(), json_obj["versioning"]):
+        if check_tags(service_hcl, json_obj) and \
+        check_exist(service_hcl, json_obj) and \
+        check_not_exist(service_hcl, json_obj):
             return True
         else:
             return False
